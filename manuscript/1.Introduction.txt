@@ -1,3 +1,5 @@
+# Introduction
+
 I'm Jess Chadwick and in this book I'll be guiding you through the ins and outs of the TypeScript programming language. 
 
 Put simply, TypeScript is a superset of JavaScript, which means that it builds on top of JavaScript's mature foundations, adding a variety of helpful syntax and tooling onto the language.  It brings the power and productivity of static typing and object-oriented development techniques to the core JavaScript language.  In fact, TypeScript is designed to be compiled into fully-compatible JavaScript.
