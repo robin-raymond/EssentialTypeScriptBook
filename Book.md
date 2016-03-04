@@ -1,3 +1,1 @@
-# Essential TypeScript
-
-This is my book, Essential TypeScript!
+chapter1.md
