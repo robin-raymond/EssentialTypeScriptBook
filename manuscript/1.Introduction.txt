@@ -123,7 +123,8 @@ You can get to the editor by opening up your favorite browser and going to "type
 
 Once the page has loaded, I'll clear all the code that’s already in the editor and replace it with this snippet of JavaScript code:
 
-~~~ javascript
+{lang=js}
+~~~
 function speak(value) {
     document.write(value);
 }
@@ -143,13 +144,15 @@ With that fixed, let's look at what this snippet is doing:  we've got a function
 Seems straight-forward enough -- what could go wrong, right?
 As it turns out, plenty.  For instance, what happens when I change the value of the greeted variable to a different type, such as a number?
 
-~~~ javascript
+{lang=js}
+~~~
 var greeted = 42;
 ~~~
 	
 Actually, that's fine, because JavaScript is smart enough to convert that number back into a string when the number is added to a string.  And, since the result will always be a string type and never be ambiguous, TypeScript is happy as well.  But, what if I turned BOTH values into numbers?  Then the resulting value would be a number!
 
-~~~ javascript
+{lang=js}
+~~~
 var greeted = 42;
 var greeting = 1;
 ~~~
@@ -160,7 +163,8 @@ Here's the problem: that's not what I intended to happen.  I only ever intended 
 
 Here's where TypeScript comes in handy.  If I only ever want strings to be passed in, I can say so by explicitly saying that the "value" parameter is a string using this syntax:
 
-~~~ javascript
+{lang=js}
+~~~
 speak(value: string)
 ~~~
 
@@ -168,13 +172,15 @@ As soon as I add this type, TypeScript immediately notices that I am trying to p
 
 TypeScript is raising this error because it thinks that the variable I'm passing is a number.  TypeScript thinks the variable is a number because it was initialized as the result of adding two numbers together on line 7.  To make this error go away, I need to tell TypeScript that the "whatToSay" variable is, indeed, a string.  I can do that using the same syntax that I just used to define the string type on the method parameter: right after the variable name, and before the assignment.
 
-~~~ javascript
+{lang=js}
+~~~
 var whatToSay: string = greeting + greeted;
 ~~~
 	
 Of course, that didn't actually solve the problem, it just gave TypeScript more information to figure out where the problem was.  Remember - the real problem is that I'm adding two numbers together which produce a number as a result.  What I need to do is change this addition to produce a string rather than a number, and I can do that by explicitly calling the toString() method on one of the number values to turn it into a string.
 
-~~~ javascript
+{lang=js}
+~~~
 var whatToSay: string = greeting.toString() + greeted;
 ~~~
 	
@@ -184,14 +190,16 @@ It's interesting to note that what I'm left with now doesn't make a whole lot of
 
 Of course, the real solution is for me to never have made them numbers in the first place…
 
-~~~ javascript
+{lang=js}
+~~~
 var greeted = "World";
 var greeting = "Hello, ";
 ~~~	
 
 Now that I've shown how to specify the type of variables and function parameters, let's talk about function return values.  Take a look at what TypeScript says when I hover over the speak function: notice that void at the end?  That's TypeScript saying that this method doesn't return any value.  And, when I add a return value, that type changes:
 
-~~~ javascript
+{lang=js}
+~~~
 function speak(value: string) {
     document.write(value);
     return value;
@@ -200,7 +208,8 @@ function speak(value: string) {
 
 If I hover over the method again I can see that TYpeScript has now determined that the method returns a string value.  Likewise, let's see what happens when I change the value that I'm returning to the length of the variable:
 
-~~~ javascript
+{lang=js}
+~~~
 return value.length;
 ~~~
 	
@@ -208,18 +217,22 @@ Now when I hover over the function I can see that TypeScript thinks that it now 
 
 When I want to explicitly define which value the function returns, all I have to do is use the same syntax at the end of the function signature as I did with the variable definition.
 
-For example, let's say that I want to make sure that the speak() function always returns a string type.  I'll simply add that to the end of the function signature:
+For example, let's say that I want to make sure that the `speak()` function always returns a string type.  I'll simply add that to the end of the function signature:
 
-~~~ javascript
-function speak(value: string): string {
+{lang=js}
+~~~
+function speak(value: string) # leanpub-start-insert : string # leanpub-end-insert {
 ~~~
 	
 With the return type specified, TypeScript can now tell me when I'm not returning a value that matches that type, which is the case right now since I'm actually returning the length of the value rather than the value itself.  Luckily, that's pretty easy to fix:
 
-~~~ javascript
+{lang=js}
+~~~
 function speak(value: string): string {
     document.write(value);
+# leanpub-start-insert
     return value;
+# leanpub-end-insert
 }
 ~~~
 	
