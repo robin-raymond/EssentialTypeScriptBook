@@ -1,3 +1,12 @@
-0.Preface.txt
-1.Introduction.txt
-2.GettingStarted.md
+00.Preface.md
+01.Introduction.md
+02.GettingStarted.md
+03.ECMAScript2015.md
+04.Fundamentals.md
+05.CustomTypes.md
+06.Classes.md
+07.Generics.md
+08.Modules.md
+09.RealWorldDevelopment.md
+10.Decorators.md
+11.Conclusion.md
