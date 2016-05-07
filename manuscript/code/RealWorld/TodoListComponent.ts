@@ -1,10 +1,12 @@
-var TodoListComponent = (function () {
+class TodoListComponent {
   
-  function TodoListComponent(el) {
+  private $el: JQueryStatic;
+  
+  constructor(el: HTMLElement) {
     this.$el = $(el);
   }
-
-  TodoListComponent.prototype.render = function (todos) {
+  
+  render(todos: Todo[]) {
 
     this.$el.html('');
     
@@ -18,13 +20,12 @@ var TodoListComponent = (function () {
       return;
     }
     
-    for(var index in todos) {
-      var todo = todos[index];
-      renderTodo(todo).appendTo(this.$el);
+    for(let todo of todos) {
+      this.renderTodo(todo).appendTo(this.$el);
     }
   };
 
-  function renderTodo(todo) {
+  renderTodo(todo: Todo) {
     return $(
       "<div class='todo-item list-group-item "+ (todo.state == 2 ? 'completed' : '') +"'>" +
       "   <div class='row'>" +
@@ -40,11 +41,10 @@ var TodoListComponent = (function () {
       "  <div class='clearfix'></div>" +
       "</div>"
     ).on('click', function() {
-      var event = document.createEvent('CustomEvent');
+      let event = document.createEvent('CustomEvent');
       event.initCustomEvent('todo-toggle', true, true, { todoId: todo.id });
       this.dispatchEvent(event);
     });
   }
 
-  return TodoListComponent;
-})();
+}
